@@ -7,17 +7,20 @@ import time
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_KEY = os.getenv('AWS_SECRET_KEY')
 AWS_S3_BUCKET = os.getenv('AWS_S3_BUCKET', 'yawc')
+AWS_REGION = os.getenv('AWS_REGION', 'ap-northeast-1')
 
 AWS_SQS_URL = os.getenv('AWS_SQS_URL')
 
 s3 = boto3.client(
     's3',
+    region_name=AWS_REGION,
     aws_access_key_id=AWS_ACCESS_KEY_ID,
     aws_secret_access_key=AWS_SECRET_KEY,
 )
 
 sqs = boto3.client(
     'sqs',
+    region_name=AWS_REGION,
     aws_access_key_id=AWS_ACCESS_KEY_ID,
     aws_secret_access_key=AWS_SECRET_KEY,
 )
