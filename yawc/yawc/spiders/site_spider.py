@@ -27,7 +27,13 @@ class SiteSpider(Spider):
                     r = urlparse(start_url)
                     if r.hostname:
                         self._seed_urls.append((company_id, start_url))
-                        self.allowed_domains.append(r.hostname)
+                        hostname = r.hostname
+                        self.allowed_domains.append(hostname)
+                        if hostname.startswith('www.'):
+                            self.allowed_domains.append(hostname[4:])
+                        else:
+                            self.allowed_domains.append('www.' + hostname)
+
 
         self.linkextractor = LinkExtractor(allow_domains=self.allowed_domains)
 
