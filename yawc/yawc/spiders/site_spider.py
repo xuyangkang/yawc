@@ -23,9 +23,11 @@ class SiteSpider(Spider):
                     start_url = pieces[2]
                     if not start_url.startswith('http'):
                         start_url = 'http://' + start_url
-                    self._seed_urls.append((company_id, start_url))
+
                     r = urlparse(start_url)
-                    self.allowed_domains.append(r.hostname)
+                    if r.hostname:
+                        self._seed_urls.append((company_id, start_url))
+                        self.allowed_domains.append(r.hostname)
 
         self.linkextractor = LinkExtractor(allow_domains=self.allowed_domains)
 
